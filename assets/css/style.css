@@ -87,12 +87,24 @@ body {
 }
 
 
-.alphabetic-key #backspace-key, #space-key{
+.alphabetic-key , #backspace-key, #space-key, #timer{
     display: flex;
     align-items: center;
     justify-content: center;
      /* Added missing semicolon */
 }
+
+#clock {
+    height: 95px;
+    width: 95px;
+    border: 3px solid white; /* Solid white border */
+    border-radius: 50%;      /* Circular shape */
+    background: rgba(0, 0, 0, 0.4); /* Transparent background */
+    text-align: center;      /* Center text horizontally */
+    line-height: 95px;       /* Center text vertically (since height is 95px) */
+    font-size: 30px;         /* Font size for the clock text */
+}
+
 
 .alphabetic-key {
     width: 45px;
@@ -123,7 +135,15 @@ body {
     text-align: center; /* Ensures the text inside the key is centered */
 }
 
-.alphabetic-key img {
+
+#space-key span, #backspace-key span {
+    position: absolute;
+    font-size: 15px;
+}
+
+
+
+#space-key img, #backspace-key img, .alphabetic-key img {
     position: absolute;
     height: 100%;
     width: 100%;
