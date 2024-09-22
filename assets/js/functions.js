@@ -22,4 +22,17 @@ function marginLeft(block) {
     return Number(block.style.marginLeft.replace('px', ''));
 }
 
+// Gets the margin-top value of a block element
+function marginTop(block) {
+    return Number(block.style.marginTop.replace('px', ''));
+}
 
+// Inverts the direction from horizontal to vertical and vice versa
+function invertDirection(direction) {
+    return direction === 'horizontal' ? 'vertical' : 'horizontal';
+}
+
+// Returns all elements with the class 'block'
+function blocks() {
+    return document.querySelectorAll('.block');
+}
