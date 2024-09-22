@@ -76,12 +76,43 @@ body {
     border: 3px solid white;
 }
 
-#alphabetic-keys,
-#other-keys {
+#alphabetic-keys, #other-keys
+{
     width: 310px;
-    height: 45px;
+    height:45px;
     color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+
+.alphabetic-key {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     /* Added missing semicolon */
+}
+.alphabetic-key {
+    width: 45px;
+    height: 45px;
+    position: relative;
+}
+
+.alphabetic-key span {
+    position: absolute;
+    font-size: 20px;
+    text-align: center; /* Ensures the text inside the key is centered */
+}
+
+.alphabetic-key img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover; /* Ensures the image scales correctly */
+}
+
 
 #timer {
     grid-row: 1 / span 2;
