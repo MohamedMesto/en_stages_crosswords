@@ -1,5 +1,5 @@
 body {
-    background-image: url('bg-1.jpg');
+    background-image: url('assets/images/bg/bg-1.jpg');
     background-size: cover;
     height: 100vh;
     margin: 0;
@@ -23,3 +23,16 @@ body {
     background: rgba(0, 0, 0, 0.4);
     float: left;
 }
+
+.block{
+    height: 46px;
+    width:46px;
+    background: linear-gradient(to right, #000000, #434343);    
+    position: absolute;
+    left:2px;
+    top:2px;
+    text-align: center;
+    line-height: 46px;   
+    font-weight: bold;
+    font-size: 25px; 
+    }
