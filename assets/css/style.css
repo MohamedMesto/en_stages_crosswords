@@ -87,17 +87,35 @@ body {
 }
 
 
-.alphabetic-key {
+.alphabetic-key #backspace-key, #space-key{
     display: flex;
     align-items: center;
     justify-content: center;
      /* Added missing semicolon */
 }
+
 .alphabetic-key {
     width: 45px;
     height: 45px;
     position: relative;
 }
+
+
+#backspace-key {
+    width: 98px;           /* Width of the backspace key */
+    height: 45px;          /* Height of the backspace key */
+    position: relative;    /* Allows for positioning of inner elements, such as the span, relative to the container */
+}
+
+#space-key {
+    width: 204px;          /* Width of the spacebar key */
+    height: 45px;          /* Height of the spacebar key */
+    position: relative;    /* Allows for positioning of inner elements, such as the span, relative to the container */
+}
+
+
+
+
 
 .alphabetic-key span {
     position: absolute;
