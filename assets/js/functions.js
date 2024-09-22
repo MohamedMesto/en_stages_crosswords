@@ -1,0 +1,2 @@
+/* Coordinates(X,Y) of a cell = Margin values (left,top) of block placed over that particular cell.
+ coordsToCellNo(X,Y) will take X, Y coords of any cell as arguments and will return the no / index of that cell. */

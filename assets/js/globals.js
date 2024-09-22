@@ -7,6 +7,11 @@ let solved = []
 let bgNum = 2
 let skips = 0
 
+/* This file contains global variables of our project. 
+Here are some DOM selections and the dictionary. 
+This dictionary is composed of almost 3000 core vocabulary words. */
+
+
 let body = document.querySelector('body')
 let container = document.querySelector('#container')
 let cells = document.querySelectorAll('.cell')
@@ -17,6 +22,11 @@ let spaceKeyImg = document.querySelector('#space-key').querySelector('img')
 let scoreText = document.querySelector('#scoreText')
 let scoreValue = document.querySelector('#scoreValue')
 let countdown = document.querySelector('#countdown')
+
+
+/* All words in dictionary are formed from lowercase letters (a-z).
+
+I will post the link of this dictionary in the description box. */
 
 let dictionary = [
     "a",
