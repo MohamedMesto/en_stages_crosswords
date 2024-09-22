@@ -157,7 +157,10 @@ body {
     grid-column: 3 / span 1;
 }
 
-#score {
-    grid-row: 3 / span 1;
-    grid-column: 3 / span 1;
-}
+#score{
+    grid-row: 3 / span 1;   
+    grid-column: 3 / span 1;  
+    line-height: 63.3px;  
+    text-align: center;
+    font-size: 20px;
+    }
