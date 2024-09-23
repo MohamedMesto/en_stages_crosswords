@@ -38,13 +38,33 @@ function blocks() {
     return document.querySelectorAll('.block')
 }
 
-
+/* This function will receive the result to be placed,
+the direction in which the result is to be placed,
+and the coordinates of that particular cell which
+will be below the block showing the first alphabet of result.
+ */
 function placeResult(result, direction, X, Y) {
     let html = ''
     let occupied = []
     let cellNo = coordsToCellNo(X, Y)
+
+/*     Generate the HTML (.block divs) of the result to be placed
+ */    
+    for(let i=0; i<result.length; i++){
+        occupied.push(direction=='horizontal' ? cellNo+i : cellNo+(i*10))
+        let style = `margin-left:${direction=='horizontal'?X+(i*50):X}px; margin-top:${direction=='vertical'?Y+(i*50): Y}px;`
+        html += `<div class='block' style='${style}'>${result[i].toUpperCase()}</div>`
+            }
+
+/*          This function will return an array: occupied.
+            occupied array will consist of cellNos of all those cells which are
+            below the blocks generated (using this result). */
+            
+        container.insertAdjacentHTML('beforeend', html)
+
     return occupied
 }
+
 /* The 6 unique random alphabets will be stored in a string: sample. We'll make sample a global variable. The words which we get back from dictionary will be stored in an array: results. */
 
 
