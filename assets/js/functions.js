@@ -152,7 +152,7 @@ function placeResults() {
         Inside the innermost loop (Loop C), you can add logic to handle comparisons or perform actions based on alphabet_A and alphabet_B.
         This structure gives you the ability to perform operations between
         remaining[0] and the result values in data.
-        
+
 /* 
 Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates through remaining[0]
    
@@ -265,6 +265,60 @@ Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates
 
 }
 
+
+function getGridWords() {
+    let gridWords = [];
+
+    for (let row = 0; row <= 9; row++) {
+        let word = '';
+
+        for (let column = 0; column <= 9; column++) {
+            if (getBlocksAtCellNo((row * 10) + column).length) {
+                word = word + getBlocksAtCellNo((row * 10) + column)[0].innerHTML;
+
+                if (word.length > 1 && column == 9) {
+                    gridWords.push(word.toLowerCase());
+                }
+            } else {
+                word.length > 1 &&    gridWords.push(word.toLowerCase())
+                word = '';
+            }
+        }
+    }
+
+    
+
+    for (let column = 0; column <= 9; column++) {
+        let word = ' ';
+    
+        for (let row = 0; row <= 9; row++) {
+            if (getBlocksAtCellNo((row * 10) + column).length) {
+                word = word + getBlocksAtCellNo((row * 10) + column)[0].innerHTML;
+    
+                if (word.length > 1 && row == 9) {
+                    gridWords.push(word.toLowerCase());
+                }
+            } else {
+                word.length > 1 && gridWords.push(word.toLowerCase());
+                word = ' ';
+            }
+        }
+    }
+    return gridWords
+    
+}
+
+function getBlocksAtCellNo(cellNo) {
+    let blocksFound = [];
+
+    blocks().forEach((block) => {
+        if (marginLeft(block) == cellNoToX(cellNo) && marginTop(block) == cellNoToY(cellNo)) {
+            blocksFound.push(block);
+        }
+    });
+
+    return blocksFound;
+}
 
 
 
