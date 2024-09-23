@@ -59,7 +59,7 @@ function placeResult(result, direction, X, Y) {
 /*          This function will return an array: occupied.
             occupied array will consist of cellNos of all those cells which are
             below the blocks generated (using this result). */
-            
+
         container.insertAdjacentHTML('beforeend', html)
 
     return occupied
@@ -112,10 +112,38 @@ function getResults() {
     return results
 }
 
+ 
 
 
 
+/* "The process of placing the 1st result is very easy and 
+different from placing rest of the results.
+ So let's make a separate function for placing 
+ the 1st result from the results array." */
 
+
+
+ function placeFirstResult(results) {
+    let X = 150;
+    let Y = 150;
+    let direction = ['horizontal', 'vertical'][Math.floor(Math.random() * 2)];
+
+
+    /* 
+    keep tracking of data of all correct placements in a global 
+    variable: data. */
+
+    data.push({
+        result: results[0], 
+        direction: direction, 
+        occupied: placeResult(results[0], direction, X, Y)
+    });
+}
+
+function placeResults() {
+    let results = getResults();
+    placeFirstResult(results);
+}
 
 
 
