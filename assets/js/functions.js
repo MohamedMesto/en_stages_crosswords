@@ -118,95 +118,57 @@ different from placing rest of the results.
 function placeFirstResult(results) {
     let X = 150;
     let Y = 150;
+    /*     let X = 0;
+        let Y = 0; */
     let direction = ['horizontal', 'vertical'][Math.floor(Math.random() * 2)]
-    /* 
-    keep tracking of data of all correct placements in a global 
-    variable: data. */
-
-    data.push({
-        result: results[0],
-        direction: direction,
-        occupied: placeResult(results[0], direction, X, Y)
-    });
+    /*     keep tracking of data of all correct placements in a global variable: data. */
+    data.push({ result: results[0], direction: direction, occupied: placeResult(results[0], direction, X, Y) })
 }
 
+/*  we have another array: remaining which will only contain those
+  words from the results array that have not been correctly placed
+   yet. */
+/*     The provided code and explanation describe the logic used to place words from a "remaining" array into a grid, ensuring they intersect correctly with previously placed words.
+
+1. Remaining Words: The `remaining` array contains words that haven't been placed yet. The code iterates through `remaining[0]` (the first unplaced word) and checks how it can be intersected with words already placed in the grid.
+
+2. Three Nested Loops:
+- Loop A: Iterates through the characters of `remaining[0]`.
+- Loop B: Iterates through previously placed words in the `data` array.
+- Loop C: Iterates through the characters of each placed word.
+ 
+3. Matching Logic:
+- If a character in `remaining[0]` matches a character in a placed word, the cell number of the matching character (`intersectCellNo`) is calculated.
+- The direction of placement is inverted (horizontal becomes vertical, and vice versa).
+
+4. Placement Calculations:
+- The starting cell number (`firstAlphabetCellNo`) is calculated based on the direction of placement:
+    - If horizontal, it's the intersect cell minus the character's index.
+    - If vertical, it's the intersect cell minus the index multiplied by 10.
+- This information (word, direction, starting cell) is stored in the `placements` array.
+
+5. Summary: The code systematically checks how words can intersect by comparing characters and calculates the starting position and direction of each word based on these intersections.
+*/
+/* Example of one placement:
+intersectCellNo = 63
+ 
+Index of 'a' in 'legal' = index_A = 3
+firstAlphabetCellNo = 63 - 3 = 60 */
 function placeResults() {
     let results = getResults();
+    console.log(results)
     placeFirstResult(results);
 
-    /*  Let's have another array: remaining which will only contain those
-      words from the results array that have not been correctly placed
-       yet. */
+    /*  we have another array: remaining which will only contain those
+    words from the results array that have not been correctly placed
+    yet. */
     let remaining = results.slice(1)
-        /*     In each round, we need to place correctly, exactly 10 results from 
-        the results array. After placeFirstResult(), only 9 iterations
-        of the loop are required to place the other results correctly.
-   
-        This array will store info about all of the possible placements 
-        (correct & wrong both) of a result in the grid. Basically we need 
-        info on: the ways in which a result can be intersected with
-        correctly placed results in the grid.  
-        Loop A: Uses Array.from() to convert remaining[0] (presumably a string) into an array of characters and loops through each character (alphabet_A).
-        Loop B: Loops through each object in the data array. Each object is expected to contain a result property (a string) and potentially other properties (like direction, occupied).
-        Loop C: Again uses Array.from() to iterate through the characters of the result string of each object in the data array.
-        Inside the innermost loop (Loop C), you can add logic to handle comparisons or perform actions based on alphabet_A and alphabet_B.
-        This structure gives you the ability to perform operations between
-        remaining[0] and the result values in data.
 
-/* 
-Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates through remaining[0]
-   
-   data.forEach((object) => {  // Loop B: Iterates through each object in data
-       
-       Array.from(object.result).forEach((alphabet_B, index_B) => {  // Loop C: Iterates through each character of result in object
-           
-           // Logic for comparing alphabet_A and alphabet_B or any other operations can be added here
-           
-       });
-   });
-});
-
-*/
-
-    /* Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterate through remaining[0]
-        data.forEach((object) => {  // Loop B: Iterate through each object in data
-            Array.from(object.result).forEach((alphabet_B, index_B) => {  // Loop C: Iterate through the result string in the object
-                if (alphabet_A === alphabet_B) {  // Check if characters match
-                    // Get the intersecting cell number based on the index of alphabet_B in the result string
-                    let intersectCellNo = object.occupied[index_B];
-                    // Invert the direction of the current object for placing remaining[0]
-                    let direction = invertDirection(object.direction);
-                    // Further logic to place the word using intersectCellNo and direction can go here
-                    console.log(`Match found! Alphabet: ${alphabet_A}, IntersectCellNo: ${intersectCellNo}, Direction: ${direction}`);
-                }
-            });
-        });
-    });
-    
-     */
-
-
-    /* Explanation of Additions:
-    firstAlphabetCellNo calculation:
-    If the direction is 'horizontal', the firstAlphabetCellNo is determined by subtracting the index_A from the intersectCellNo.
-    If the direction is 'vertical', the firstAlphabetCellNo is determined by subtracting (index_A * 10) from the intersectCellNo 
-    (since each row in the grid typically spans 10 cells).
-    Pushing the placement data: The object {result: remaining[0], direction: direction, firstAlphabetCellNo: firstAlphabetCellNo}
-     is pushed into the placements array. This keeps track of the word, its placement direction, 
-    and the starting cell number. */
-
-    /* 
-    Example of one placement:
-    intersectCellNo = 63
-    Index of 'a' in 'legal' = index_A = 3
-    firstAlphabetCellNo = 63 - 3 = 60
-     */
-
-
-    for (let iterations = 0; iterations < 9; iterations++) {
+    for (let iterations = 0; iterations < 15; iterations++) {
+        if (data.length == 10) {
+            break
+        }
         let placements = [];
-
-
         // Loop through each letter of remaining[0]
         Array.from(remaining[0]).forEach((alphabet_A, index_A) => {
 
@@ -217,7 +179,7 @@ Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates
                 Array.from(object.result).forEach((alphabet_B, index_B) => {
 
                     // Check if alphabet_A matches alphabet_B (intersection point)
-                    if (alphabet_A === alphabet_B) {
+                    if (alphabet_A == alphabet_B) {
 
                         // Find the intersection cell number
                         let intersectCellNo = object.occupied[index_B];
@@ -226,22 +188,13 @@ Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates
                         let direction = invertDirection(object.direction);
 
                         // Determine the starting cell number based on the direction
-                        let firstAlphabetCellNo = (direction === 'horizontal')
-                            ? intersectCellNo - index_A
-                            : intersectCellNo - (index_A * 10)
+                        let firstAlphabetCellNo = (direction == 'horizontal') ? intersectCellNo - index_A : intersectCellNo - (index_A * 10)
 
                         // Push the placement data to the placements array
-                        placements.push({
-                            result: remaining[0],
-                            direction: direction,
-                            firstAlphabetCellNo: firstAlphabetCellNo
-                        })
+                        placements.push({ result: remaining[0], direction, firstAlphabetCellNo })
                     }
-
                 })
-                0
             })
-
         })
 
         let validPlacement = false
@@ -258,8 +211,35 @@ Array.from(remaining[0]).forEach((alphabet_A, index_A) => {  // Loop A: Iterates
                 }
             })
 
+            let test = true;
+            if (!outOfGrid) {
+                let gridWords = getGridWords()
+                gridWords.forEach((word) => {
+                    if (!results.slice(0, data.length + 1).includes(word)) {
+                        test = false;
+                    }
+                })
+                if (new Set(gridWords).size != gridWords.length || gridWords.length != results.slice(0, data.length + 1).length) {
+                    test = false
+                }
+            }
 
+            if (test && !outOfGrid) {
+                validPlacement = true
+                data.push(placements[i])
+                remaining.shift()
+                break
+            }
+            else {
+                for (let j = 0; j < remaining[0].length; j++) {
+                    container.lastChild.remove()
+                }
+            }
 
+        }
+        if (!validPlacement) {
+            results.push(results.splice(results.indexOf(remaining[0]), 1)[0])
+            remaining.push(remaining.shift())
         }
     }
 
@@ -280,21 +260,21 @@ function getGridWords() {
                     gridWords.push(word.toLowerCase());
                 }
             } else {
-                word.length > 1 &&    gridWords.push(word.toLowerCase())
+                word.length > 1 && gridWords.push(word.toLowerCase())
                 word = '';
             }
         }
     }
 
-    
+
 
     for (let column = 0; column <= 9; column++) {
         let word = ' ';
-    
+
         for (let row = 0; row <= 9; row++) {
             if (getBlocksAtCellNo((row * 10) + column).length) {
                 word = word + getBlocksAtCellNo((row * 10) + column)[0].innerHTML;
-    
+
                 if (word.length > 1 && row == 9) {
                     gridWords.push(word.toLowerCase());
                 }
@@ -305,7 +285,7 @@ function getGridWords() {
         }
     }
     return gridWords
-    
+
 }
 
 function getBlocksAtCellNo(cellNo) {
@@ -326,3 +306,5 @@ function getBlocksAtCellNo(cellNo) {
 
 
 
+/* placeResults();
+console.log(data); // Ensure this shows the correct full array */

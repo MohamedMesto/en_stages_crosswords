@@ -1,11 +1,6 @@
 let sample
 let data = []
-let gameStarted = false
-let keysAllowed = false
-let countdownID
-let solved = []
-let bgNum = 2
-let skips = 0
+
 
 /* This file contains global variables of our project. 
 Here are some DOM selections and the dictionary. 
