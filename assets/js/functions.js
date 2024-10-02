@@ -157,6 +157,7 @@ firstAlphabetCellNo = 63 - 3 = 60 */
 function placeResults() {
     data = []
     blocks().forEach(block => block.remove())
+    cells.forEach(cell=> cell.style.opacity='1')
 
     let results = getResults();
     /*     console.log(results) */
@@ -242,6 +243,11 @@ function placeResults() {
         }
     }
     arrangeBlocks()
+    cells.forEach((cell, cellNo) => {
+        if (!data.find(object => object.occupied.includes(cellNo))) {
+            cell.style.opacity = '0'
+        }
+    })
 }
 
 
@@ -330,7 +336,7 @@ function arrangeBlocks() {
         object.occupied = object.occupied.map(cellNo => cellNo + (Math.trunc((emptyRowsOnBS - emptyRowsOnUS) / 2) * 10))
     })
     blocks().forEach((block) => {
-        block.style.marginTop = `${ marginTop(block) + (Math.trunc((emptyRowsOnBS - emptyRowsOnUS) / 2) * 50) } px`
+        block.style.marginTop = `${marginTop(block) + (Math.trunc((emptyRowsOnBS - emptyRowsOnUS) / 2) * 50)} px`
     })
 }
 
