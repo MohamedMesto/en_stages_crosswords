@@ -38,6 +38,28 @@ function blocks() {
     return document.querySelectorAll('.block')
 }
 
+function triggerCountdown() {
+    clearInterval(countdownID)
+    countdown.innerHTML = '300'
+    countdownID = setInterval(() => {
+        countdown.innerHTML = Number(countdown.innerHTML) - 1
+        countdown.innerHTML == '0' && gameOver()
+
+    }, 1000)
+}
+function gameOver() {
+    bgMusic.pause()
+    new Audio('game over.wav').play()
+    inputString.innerHTML = ''
+    clearInterval(countdownID)
+
+}
+
+
+
+
+
+
 /* This function will receive the result to be placed,
 the direction in which the result is to be placed,
 and the coordinates of that particular cell which
@@ -157,7 +179,7 @@ firstAlphabetCellNo = 63 - 3 = 60 */
 function placeResults() {
     data = []
     blocks().forEach(block => block.remove())
-    cells.forEach(cell=> cell.style.opacity='1')
+    cells.forEach(cell => cell.style.opacity = '1')
 
     let results = getResults();
     /*     console.log(results) */
