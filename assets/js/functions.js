@@ -155,14 +155,13 @@ intersectCellNo = 63
 Index of 'a' in 'legal' = index_A = 3
 firstAlphabetCellNo = 63 - 3 = 60 */
 function placeResults() {
-    let results = getResults();
-    console.log(results)
-    placeFirstResult(results);
+    data = []
+    blocks().forEach(block => block.remove())
 
-    /*  we have another array: remaining which will only contain those
-    words from the results array that have not been correctly placed
-    yet. */
-    let remaining = results.slice(1)
+    let results = getResults();
+    /*     console.log(results) */
+    placeFirstResult(results);
+    let remaining = results.slice(1)  /*  we have another array: remaining which will only contain those words from the results array that have not been correctly placed yet. */
 
     for (let iterations = 0; iterations < 15; iterations++) {
         if (data.length == 10) {
@@ -242,7 +241,7 @@ function placeResults() {
             remaining.push(remaining.shift())
         }
     }
-
+    arrangeBlocks()
 }
 
 
@@ -300,7 +299,40 @@ function getBlocksAtCellNo(cellNo) {
     return blocksFound;
 }
 
+function arrangeBlocks() {
+    let min_X = +Infinity
+    let max_X = -Infinity
+    let min_Y = +Infinity
+    let max_Y = -Infinity
 
+    blocks().forEach((block) => {
+        min_X = Math.min(min_X, marginLeft(block))
+        max_X = Math.max(max_X, marginLeft(block))
+        min_Y = Math.min(min_Y, marginTop(block))
+        max_Y = Math.max(max_Y, marginTop(block))
+
+    })
+
+    let emptyColumnsOnLS = min_X / 5
+    let emptyColumnsOnRS = (450 - max_X) / 5
+
+
+    data.forEach((object) => {
+        object.occupied = object.occupied.map(cellNo => cellNo + Math.trunc((emptyColumnsOnRS - emptyColumnsOnLS) / 2))
+    })
+    blocks().forEach((block) => {
+        block.style.marginLeft = `${marginLeft(block) + (Math.trunc((emptyColumnsOnRS - emptyColumnsOnLS) / 2) * 50)}px`
+    })
+
+    let emptyRowsOnUS = min_Y / 50
+    let emptyRowsOnBS = (450 - max_Y) / 50
+    data.forEach((object) => {
+        object.occupied = object.occupied.map(cellNo => cellNo + (Math.trunc((emptyRowsOnBS - emptyRowsOnUS) / 2) * 10))
+    })
+    blocks().forEach((block) => {
+        block.style.marginTop = `${ marginTop(block) + (Math.trunc((emptyRowsOnBS - emptyRowsOnUS) / 2) * 50) } px`
+    })
+}
 
 
 
