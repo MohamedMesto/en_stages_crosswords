@@ -14,18 +14,25 @@ document.addEventListener('click', async () => {
         triggerCountdown()
         document.querySelectorAll('.alphabetic-key span').forEach(elem => elem.style.opacity = '1')
         keysAllowed = true
+    }
+})
 
+document.addEventListener('keydown', (e) => {
+    if (keysAllowed && sample.includes(e.key.toLowerCase()) && inputString.innerHTML.length != 6 && !e.repeat) {
+        inputString.innerHTML = inputString.innerHTML + e.key.toUpperCase()
+        alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (50%)'
+        new Audio('assets/audio/keyPress.mp3').play()
     }
     else if (e.key == 'Backspace' && keysAllowed && inputString.innerHTML.length > 0 && !e.repeat) {
         inputString.innerHTML = inputString.innerHTML.slice(0, inputString.innerHTML.length - 1)
-        backspaceKeyImg.style.filter = 'brightness (50%)'
+        backspaceKeyImg.style.filter = 'brightness(50%)'
         new Audio('assets/audio/backspace.mp3').play()
     }
     else if (e.key == 'Escape' && keysAllowed) {
         gameOver()
     }
     else if (keysAllowed && e.code == 'Space' && !e.repeat && inputString.innerHTML.length >= 3) {
-        spaceKeyImg.style.filter = 'brightness (50%)'
+        spaceKeyImg.style.filter = 'brightness(50%)'
         let correct = false
         data.forEach((object) => {
             if (object.result == inputString.innerHTML.toLowerCase() && !solved.includes(inputString.innerHTML.toLowerCase())) {
@@ -50,24 +57,33 @@ document.addEventListener('click', async () => {
                         }
                     }
                 })
+                solved.push(object.result)
+                if (solved.length == 10) {
+                    bgMusic.pause()
+                    new Audio('assets/audio/win.mp3').play()
+                    clearInterval(countdownID)
+                    scoreValue.innerHTML = Number(scoreValue.innerHTML) + Number(countdown.innerHTML) + 1000
+                }
             }
         })
-    }
-})
-
-document.addEventListener('keydown', (e) => {
-    if (keysAllowed && sample.includes(e.key.toLowerCase()) && inputString.innerHTML.length != 6 && !e.repeat) {
-        inputString.innerHTML = inputString.innerHTML + e.key.toUpperCase()
-        alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (50%)'
-        new Audio('assets/audio/keyPress.mp3').play()
-
-
+        !correct && new Audio('assets/audio/wrong.mp3').play()
+        inputString.innerHTML = ''
     }
 })
 document.addEventListener('keyup', (e) => {
     if (keysAllowed && sample.includes(e.key.toLowerCase())) {
         setTimeout(() => {
             alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (100%)'
+        }, 100)
+    }
+    else if (keysAllowed && e.code == 'Space') {
+        setTimeout(() => {
+            spaceKeyImg.style.filter = 'brightness (100%)'
+        }, 100)
+    }
+    else if (keysAllowed && e.key == 'Backspace') {
+        setTimeout(() => {
+            backspaceKeyImg.style.filter = 'brightness (100%)'
         }, 100)
     }
 })
