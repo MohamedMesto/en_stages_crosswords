@@ -1,6 +1,7 @@
 let sample
 let data = []
 let gameStarted=false
+let keysAllowed=false
 let countdownID
 
 /* This file contains global variables of our project. 

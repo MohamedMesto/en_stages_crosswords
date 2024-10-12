@@ -52,6 +52,7 @@ function gameOver() {
     new Audio('game over.wav').play()
     inputString.innerHTML = ''
     clearInterval(countdownID)
+    keysAllowed=false
 
 }
 
@@ -74,14 +75,11 @@ function placeResult(result, direction, X, Y) {
      */
     for (let i = 0; i < result.length; i++) {
         occupied.push(direction == 'horizontal' ? cellNo + i : cellNo + (i * 10))
-        let style = `margin-left:${direction == 'horizontal' ? X + (i * 50) : X}px; margin-top:${direction == 'vertical' ? Y + (i * 50) : Y}px;`
+        let style = `margin-left:${direction == 'horizontal' ? X + (i * 50) : X}px; margin-top:${direction == 'vertical' ? Y + (i * 50) : Y}px; transform:scale(0);`
         html += `<div class='block' style='${style}'>${result[i].toUpperCase()}</div>`
     }
 
-    /*          This function will return an array: occupied.
-                occupied array will consist of cellNos of all those cells which are
-                below the blocks generated (using this result). */
-
+    /*          This function will return an array: occupied. occupied array will consist of cellNos of all those cells which are below the blocks generated (using this result). */
     container.insertAdjacentHTML('beforeend', html)
 
     return occupied

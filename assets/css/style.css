@@ -47,6 +47,7 @@ body {
     line-height: 46px;
     font-weight: bold;
     font-size: 25px;
+    transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #info {
@@ -135,7 +136,8 @@ body {
 .alphabetic-key span {
     position: absolute;
     font-size: 20px;
-    text-align: center; /* Ensures the text inside the key is centered */
+    /* text-align: center;  *//* Ensures the text inside the key is centered */
+    opacity: 0;
 }
 
 
