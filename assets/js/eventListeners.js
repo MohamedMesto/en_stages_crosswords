@@ -83,7 +83,7 @@ document.addEventListener('keydown', async (e) => {
             placeResults()
 
         }
-        body.style.backgroundImage = `url('bg-${bgNum}.jpg')`
+        body.style.backgroundImage = `url('assets/images/bg/bg-${bgNum}.jpg')`
         let blockColors = ['linear-gradient(to right, #000000, #434343)', 'linear-gradient(to right, #0575e6, #021b79)', 'linear-gradient(to right, #0575e6, #021b79)']
         blocks().forEach(block => block.style.background = blockColors[bgNum - 1])
         bgNum = bgNum == 4 ? 1 : bgNum + 1
