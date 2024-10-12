@@ -17,7 +17,7 @@ document.addEventListener('click', async () => {
     }
 })
 
-document.addEventListener('keydown', (e) => {
+document.addEventListener('keydown', async (e) => {
     if (keysAllowed && sample.includes(e.key.toLowerCase()) && inputString.innerHTML.length != 6 && !e.repeat) {
         inputString.innerHTML = inputString.innerHTML + e.key.toUpperCase()
         alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (50%)'
@@ -69,6 +69,34 @@ document.addEventListener('keydown', (e) => {
         !correct && new Audio('assets/audio/wrong.mp3').play()
         inputString.innerHTML = ''
     }
+    else if (e.key == 'Enter' && keysAllowed && (solved.length == 10 || skips != 3)) {
+        solved.length != 10 && skips++
+        solved = []
+        inputString.innerHTML =''
+        clearInterval(countdownID)
+        keysAllowed = false
+        body.style.filter = 'blur(200px)'
+        body.style.backdropFilter = 'blur(200px)'
+        await new Promise(resolve => setTimeout(resolve, 500))
+        data = []
+        while (data.length != 10) {
+            placeResults()
+
+        }
+        body.style.backgroundImage = `url('bg-${bgNum}.jpg')`
+        let blockColors = ['linear-gradient(to right, #000000, #434343)', 'linear-gradient(to right, #0575e6, #021b79)', 'linear-gradient(to right, #0575e6, #021b79)']
+        blocks().forEach(block => block.style.background = blockColors[bgNum - 1])
+        bgNum = bgNum == 4 ? 1 : bgNum + 1
+        body.style.filter = 'blur(0px)'
+        body.style.backdropFilter = 'blur(0px)'
+        await new Promise(resolve => setTimeout(resolve, 500))
+
+        triggerCountdown()
+        bgMusic.play()
+        keysAllowed = true
+    }
+ 
+
 })
 document.addEventListener('keyup', (e) => {
     if (keysAllowed && sample.includes(e.key.toLowerCase())) {
