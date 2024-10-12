@@ -3,7 +3,7 @@ let data = []
 let gameStarted=false
 let keysAllowed=false
 let countdownID
-
+let solved = []
 /* This file contains global variables of our project. 
 Here are some DOM selections and the dictionary. 
 This dictionary is composed of almost 3000 core vocabulary words. */

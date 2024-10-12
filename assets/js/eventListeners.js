@@ -23,7 +23,35 @@ document.addEventListener('click', async () => {
     }
     else if (e.key == 'Escape' && keysAllowed) {
         gameOver()
-
+    }
+    else if (keysAllowed && e.code == 'Space' && !e.repeat && inputString.innerHTML.length >= 3) {
+        spaceKeyImg.style.filter = 'brightness (50%)'
+        let correct = false
+        data.forEach((object) => {
+            if (object.result == inputString.innerHTML.toLowerCase() && !solved.includes(inputString.innerHTML.toLowerCase())) {
+                correct = true
+                new Audio('assets/audio/correct.mp3').play()
+                scoreValue.innerHTML = Number(scoreValue.innerHTML) + (object.result.length * 10)
+                scoreText.style.color = 'lime'
+                scoreText.animate(
+                    [{ color: 'lime' }, { color: 'white' }],
+                    { duration: 3000, easing: 'linear', fill: 'forwards' }
+                )
+                object.occupied.forEach((cellNo) => {
+                    let blocksArray = getBlocksAtCellNo(cellNo)
+                    if (blocksArray.length == 1) {
+                        blocksArray[0].style.transform = 'scale(1)'
+                    } else if (blocksArray.length == 2) {
+                        if (blocksArray[0].style.transform == 'scale(0)') {
+                            blocksArray[0].style.transform = 'scale(1)'
+                        }
+                        else {
+                            blocksArray[1].style.transform = 'scale(1)'
+                        }
+                    }
+                })
+            }
+        })
     }
 })
 
