@@ -16,22 +16,22 @@ document.addEventListener('click', async () => {
         keysAllowed = true
 
     }
-    else if(e.key=='Backspace' && keysAllowed && inputString.innerHTML.length>0 && !e.repeat){
-        inputString.innerHTML = inputString.innerHTML.slice(0,inputString.innerHTML.length-1)
+    else if (e.key == 'Backspace' && keysAllowed && inputString.innerHTML.length > 0 && !e.repeat) {
+        inputString.innerHTML = inputString.innerHTML.slice(0, inputString.innerHTML.length - 1)
         backspaceKeyImg.style.filter = 'brightness (50%)'
-        new Audio('backspace.mp3').play()
-        }
-        else if(e.key=='Escape' && keysAllowed) {
-            gameOver()
+        new Audio('assets/audio/backspace.mp3').play()
+    }
+    else if (e.key == 'Escape' && keysAllowed) {
+        gameOver()
 
-        }
+    }
 })
 
 document.addEventListener('keydown', (e) => {
     if (keysAllowed && sample.includes(e.key.toLowerCase()) && inputString.innerHTML.length != 6 && !e.repeat) {
         inputString.innerHTML = inputString.innerHTML + e.key.toUpperCase()
         alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (50%)'
-        new Audio('keyPress.mp3').play()
+        new Audio('assets/audio/keyPress.mp3').play()
 
 
     }
@@ -39,6 +39,7 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('keyup', (e) => {
     if (keysAllowed && sample.includes(e.key.toLowerCase())) {
         setTimeout(() => {
-            alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (100%)'},100)
-        }
-    })
+            alphaKeys[sample.indexOf(e.key.toLowerCase())].querySelector('img').style.filter = 'brightness (100%)'
+        }, 100)
+    }
+})

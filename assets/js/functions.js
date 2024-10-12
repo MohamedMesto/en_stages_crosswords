@@ -49,8 +49,9 @@ function triggerCountdown() {
 }
 function gameOver() {
     bgMusic.pause()
-    new Audio('game over.wav').play()
+    new Audio('assets/audio/gameover.wav').play()
     inputString.innerHTML = ''
+    blocks().forEach (block => block.style.transform ='scale(1)')
     clearInterval(countdownID)
     keysAllowed=false
 
