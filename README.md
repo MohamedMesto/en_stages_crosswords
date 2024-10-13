@@ -7,3 +7,4 @@ You can view the live site here - <a href="https://mohamedmesto.github.io/en_sta
 
 ![Love Cross Words responsive design](assets/images/readme_images/devices.png)
 
+## Not finished , it still has some Bugs to fixes 
